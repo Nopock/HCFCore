@@ -1,0 +1,5 @@
+name: HCF
+main: dev.viva.hcf.HCF
+version: 1.0
+api-version: 1.17
+author: Viva Development Team

@@ -1,0 +1,11 @@
+serverName: "Elvern"
+serverWebsite: example.net
+mongo-uri: "mongodb://localhost:27107"
+
+server:
+  maxFactionSize: 5
+  maxAllies: 0
+  nether-buffer: 300
+  warzone:
+    warzone-border: 1000
+    warzone-radius: 400
