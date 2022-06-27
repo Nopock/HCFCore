@@ -1,7 +1,10 @@
 package dev.viva.hcf
 
 import dev.viva.hcf.profiles.Profile
+import dev.viva.hcf.profiles.repository.ProfileRepository
 import dev.viva.hcf.profiles.repository.cache.ProfileCache
+import dev.viva.hcf.teams.repository.TeamRepository
+import dev.viva.hcf.teams.repository.cache.TeamCache
 import dev.viva.hcf.timer.impl.EnderPearlHandler
 import dev.viva.hcf.timer.impl.SpawnTagHandler
 import ltd.matrixstudios.duplex.DuplexMongoManager
@@ -28,6 +31,10 @@ class HCF : JavaPlugin() {
         DuplexMongoManager.start("mongodb://localhost:27017", "hcf")
 
         setupScoreboard()
+
+        TeamRepository.findAll().forEach {
+            TeamCache.cache(it.id, it)
+        }
     }
 
     private fun setupScoreboard(){
@@ -74,6 +81,12 @@ class HCF : JavaPlugin() {
 
                 return@registerOnJoin context
             }
+    }
+
+    override fun onDisable() {
+        ProfileCache.cache.forEach {
+            ProfileRepository.save(it.key, it.value)
+        }
     }
 
 }
